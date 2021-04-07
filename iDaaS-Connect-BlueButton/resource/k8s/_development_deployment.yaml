@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: integradorgovbr
+  labels: &labels
+    app: integradorgovbr
+spec:
+  replicas: 1
+  selector:
+    # to avoid missing label selectors use YAML aliases
+    matchLabels: *labels
+  template:
+    metadata:
+      labels: *labels
+    spec:
+      containers:
+        - env:
+            - name: JAVA_TOOL_OPTIONS
+              value: '-Dfile.encoding=UTF-8 -Djavax.servlet.request.encoding=UTF8'
+          envFrom:
+            - configMapRef:
+                name: integradorgovbr-config
+            - secretRef:
+                name: integradorgovbr-secret
+          image: >-
+            image-registry.openshift-image-registry.svc:5000/pipeline-sefaz/integradorgovbr:latest 
+          imagePullPolicy: Always         
+          name: integradorgovbr
+          resources:
+            limits:
+              memory: "750Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+  strategy:
+    type: Recreate
+

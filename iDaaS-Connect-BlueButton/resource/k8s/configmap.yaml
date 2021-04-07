@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: idaas-connect-bluebutton-config
+data:
+        CLIENT_ID=YOUR-CODE-HERE
+        CLIENT_SECRET=YOUR-CMS-CODE-HERE
+        CALLBACK_PATH=login
+        CALLBACK_HOSt=localhost
+        CALLBACK_PORT=8890
+        SERVER_PORT=9982
+binaryData:
+  bar: L3Jvb3QvMTAw 

@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: idaas-connect-bluebutton
+  labels:
+    app: idaas-connect-bluebutton
+  annotations:
+    openshift.io/host.generated: 'true'
+spec:
+  path: /
+  to:
+    kind: Service
+    name: idaas-connect-bluebutton
+    weight: 100
+  port:
+    targetPort: 8080
+  wildcardPolicy: None
+
