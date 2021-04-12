@@ -1,0 +1,24 @@
+# permissions for end users to edit idaas.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: idaas-editor-role
+rules:
+- apiGroups:
+  - operator.idaas.redhat.com
+  resources:
+  - idaas
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - operator.idaas.redhat.com
+  resources:
+  - idaas/status
+  verbs:
+  - get
