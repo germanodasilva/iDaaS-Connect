@@ -4,10 +4,11 @@ FROM registry.access.redhat.com/ubi8/ubi
 # Metadata information
 #
 
-LABEL name="iDaas Connect EDI" \
+LABEL name="iDaas Connect BlueButton" \
       vendor="Red Hat" \
       maintainer="Alan Scott <alscott@redhat.com>" \
-      build-date="2021-04-07" \
+      maintainer="Germano Da Silva <gedasilv@redhat.com>" \
+      build-date="2021-04-11" \
       version="${IDAAS_CONNECT_BLUEBUTTON}" \
       release="1"
 
@@ -39,12 +40,6 @@ RUN yum update -y
 
 RUN yum install ${YUM_OPTS} -y java-11-openjdk-devel
 RUN dnf -y install maven
-#    yum -y clean all && \
-#    cd ${ETHERPAD_BASEDIR} && \
-#    curl -L https://github.com/ether/etherpad-lite/archive/${ETHERPAD_VERSION}.tar.gz | tar -xz && \
-#    mv etherpad-lite-${ETHERPAD_VERSION} ${ETHERPAD_WORKDIR} && \
-#    mkdir ${ETHERPAD_DATADIR} && \
-#    cd ${ETHERPAD_WORKDIR}
 
 #
 # Prepare the image for running on OpenShift
@@ -59,7 +54,10 @@ USER ${IDAAS_CONNECT_BLUEBUTTON_USER}
 
 RUN export PATH=$PATH:/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.282.b08-2.el8_3.x86_64
 
-RUN ls -l /opt/idaas-connect-bluebutton/
+RUN cd ${IDAAS_CONNECT_BLUEBUTTON_WORKDIR} && \
+    mvn -e clean package 
+
+#RUN ls -l /opt/idaas-connect-bluebutton/
 #
 # Set application execution parameters
 #
