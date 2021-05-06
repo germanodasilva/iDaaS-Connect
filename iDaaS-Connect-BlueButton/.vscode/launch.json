@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<idaas-connect-bluebutton>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.redhat.idaas.connect.bluebutton.Application",
+            "projectName": "idaas-connect-bluebutton",
+            "args": ""
+        }
+    ]
+}

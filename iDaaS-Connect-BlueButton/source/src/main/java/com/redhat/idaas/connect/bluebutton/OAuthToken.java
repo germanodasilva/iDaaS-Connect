@@ -1,12 +1,14 @@
 package com.redhat.idaas.connect.bluebutton;
 
+
+
 public class OAuthToken {
     private String access_token;
     private double expires_in;
     private String token_type;
     private String scope;
     private String refresh_token;
-    private String bluebuttonHost;
+
 
 
 

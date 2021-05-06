@@ -1,30 +1,16 @@
-  
 config:
-    name: idaas-connect-bluebutton
     max-retry: ${API_RETRIES:1}
     redelivery-timeout-millis: ${API_TIMEOUT:1000}
     bluebutton:
-        CLIENT_ID: ${CLIENT_ID:000000000}        
-        CLIENT_SECRET: ${CLIENT_SECRET:00000000}
+        CLIENT_ID: ${CLIENT_ID:5uCeIboNmAcZRxFr9RQsyEdhffGF9tenOlwvVGCf}        
+        CLIENT_SECRET: ${CLIENT_SECRET:JiQx44EeIRl09kHtDImMnX2MHMlR0MIHJuxkFvPGquvSQS2smzzaUl8bqoSvPWyKXSP2CgIxmN8ZWmSA6niHBayAMzxeSiGPLTvVnWgREuiLUaw61AtH5gpJx5n5ZZbi}
         CALLBACK_PATH: ${CALLBACK_PATH:login}
         CALLBACK_HOST: ${CALLBACK_HOST:localhost}
         CALLBACK_PORT: ${CALLBACK_PORT:8890}
         SERVER_PORT: ${SERVER_PORT:9982}
-
-spring:
-    debug: true
-    application:
-        name: idaas-connect-bluebutton
-    cloud:
-        kubernetes:
-            reload:
-                enabled: true
-    http:
-        encoding:
-            charset: UTF-8
-    info:
-        build:
-            encoding: UTF-8
-    jackson:
-        time-zone: America/Sao_Paulo
-    mandatory-file-encoding: UTF-8
+    api:
+        CMS_URL: ${CMS_URL:https://sandbox.bluebutton.cms.gov}
+        CMS_VERSION: ${CMS_VERSION:v1}
+    streams:
+        KAFKA_URL: ${KAFKA_URL:localhost:9092}
+        KAFKA_TOPIC: ${KAFKA_TOPIC:opsmgmt_platformtransactions}

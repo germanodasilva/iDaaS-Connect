@@ -19,6 +19,9 @@ package com.redhat.idaas.connect.bluebutton;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
+
+import com.redhat.idaas.connect.bluebutton.util.PropertiesConfig;
+
 import ca.uhn.fhir.store.IAuditDataStore;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
@@ -45,6 +48,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CamelConfiguration extends RouteBuilder {
   private static final Logger log = LoggerFactory.getLogger(CamelConfiguration.class);
+  private PropertiesConfig config;
+  
 
   //@Autowired
   //private ConfigProperties config;
@@ -115,12 +120,12 @@ public class CamelConfiguration extends RouteBuilder {
     /*
 	 * Rest Endpoint Implementation
      */
-
-    restConfiguration().component("netty-http").host("{{bluebutton.callback.host}}").port("{{bluebutton.callback.port}}").bindingMode(RestBindingMode.json);
+        //"{{bluebutton.callback.host}}"
+    restConfiguration().component("netty-http").host(config.getCALLBACK_HOST()).port(config.getCALLBACK_PORT()).bindingMode(RestBindingMode.json);
 
     rest()
         .get("/bluebutton").to("direct:authorize")
-        .get("/{{bluebutton.callback.path}}").to("direct:callback");
+        .get(config.getCALLBACK_PATH()).to("direct:callback");
 
     from("direct:authorize")
         .setHeader("Location", simple("https://sandbox.bluebutton.cms.gov/v1/o/authorize/?response_type=code&client_id={{bluebutton.client.id}}&redirect_uri=http://{{bluebutton.callback.host}}:{{bluebutton.callback.port}}/{{bluebutton.callback.path}}&scope=patient/Patient.read patient/Coverage.read patient/ExplanationOfBenefit.read profile"))
@@ -176,7 +181,7 @@ public class CamelConfiguration extends RouteBuilder {
         .transform().constant("Done");
 
     from("direct:kafka")
-        .to("kafka:bluebutton?brokers=localhost:9092");
+        .to("kafka:bluebutton?brokers=" + config.getKAFKA_URL());
 
     from("direct:patient")
         .toD("https://sandbox.bluebutton.cms.gov/v1/fhir/Patient/${body}?bridgeEndpoint=true")

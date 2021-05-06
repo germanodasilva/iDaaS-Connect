@@ -9,5 +9,10 @@ data:
         CALLBACK_HOSt=localhost
         CALLBACK_PORT=8890
         SERVER_PORT=9982
+        CMS_URL=https://sandbox.bluebutton.cms.gov
+        CMS_VERSION=v1
+        KAFKA_URL=localhost:9092
+        KAFKA_TOPIC=opsmgmt_platformtransactions
+
 binaryData:
   bar: L3Jvb3QvMTAw 
